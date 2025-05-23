@@ -3,6 +3,8 @@
     <AboutHero></AboutHero>
     <AboutWhatWeStandFor></AboutWhatWeStandFor>
     <AboutStrategy></AboutStrategy>
+    <AboutLeadership></AboutLeadership>
+    
     
     
 
