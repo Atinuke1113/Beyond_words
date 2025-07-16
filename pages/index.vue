@@ -2,7 +2,7 @@
   <div class="w-full">
     <HomeHero></HomeHero>
     <HomeIntro></HomeIntro>
-    <HomeMission></HomeMission>
+    <HomePartners></HomePartners>
     <HomeSdg></HomeSdg>
     <HomeImpacts></HomeImpacts>
     <HomeCta></HomeCta>

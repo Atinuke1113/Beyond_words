@@ -1,55 +1,99 @@
 <template>
   <div>
-    <header :class="['w-full py-4 transition-all duration-300', isScrolled ? 'fixed top-0 left-0 z-50 bg-white shadow-md' : '']">
-      <nav class="container mx-auto px-4 flex items-center justify-between">
-        <NuxtLink to="/" class="flex items-center">
-          <img src="@/assets/images/logo.jpg" alt="Logo" class="h-16 w-20" />
+    <!-- Top Bar -->
+<div :class="['w-full bg-blue-400 px-5 py-2 hidden md:block', !isAtHero ? 'hidden' : '']">
+  <div class="container mx-auto px-4 flex justify-between items-center">
+    <div class="flex items-center space-x-6">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-map-marker-alt text-white"></i>
+        <span class="text-white">Ado-Ekiti, Nigeria</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-envelope text-white"></i>
+        <span class="text-white">richmargeducationalconsult@gmail.com</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-phone text-white"></i>
+        <span class="text-white">+234 9131712696</span>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="#" class="text-white hover:text-orange-400"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="text-white hover:text-orange-400"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="text-white hover:text-orange-400"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Navigation -->
+<header :class="['py-4 transition-all duration-300', 
+  isAtHero ? 'absolute py-0 bg-white left-0 right-0 top-10 z-50 overflow-hidden' : 'fixed top-0 left-0 z-50 w-full bg-white shadow-md']">
+  <nav class="container mx-auto px-4">
+    <div class="flex items-center justify-between">
+      <NuxtLink to="/" class="flex text-white items-center">
+        <img src="@/assets/images/logo_1.png" alt="Logo" class="h-16 w-20" />
+      </NuxtLink>
+
+
+      <div class="hidden lg:flex items-center space-x-8">
+        <NuxtLink v-for="item in menuItems" 
+          :key="item.title"
+          :to="item.path"
+          class="text-gray-400 hover:text-blue-400 transition-colors group relative py-2"
+        >
+          {{ item.title }}
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
         </NuxtLink>
+      </div>
+      <div class="hidden lg:flex items-center space-x-4">
+        <NuxtLink to="/donate" class="bg-blue-400 text-white px-6 py-2 rounded-full hover:border-blue-400 hover:bg-white hover:text-blue-400 transition-colors">
+          Donate Now
+        </NuxtLink>
+        <NuxtLink to="/join" class="border-2 border-blue-400 text-blue-400 px-6 py-2 rounded-full hover:bg-blue-400 hover:text-white transition-colors">
+          Join Us
+        </NuxtLink>
+      </div>
 
-        <div class="hidden lg:flex items-center space-x-10">
-          <NuxtLink v-for="item in menuItems" 
-            :key="item.title"
-            :to="item.path"
-            class="text-gray-700 hover:text-blue-400 transition-colors group relative"
-          >
-            {{ item.title }}
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
-          </NuxtLink>
-        </div>
+      <button @click="toggleMobileMenu" class="lg:hidden text-blue-400">
+        <i class="fas fa-bars text-3xl"></i>
+      </button>
+    </div>
+    </nav>
+</header>
 
-        <div class="hidden lg:flex items-center space-x-4">
-          <a href="tel:+2349131712696" class="text-blue-400">
-            <i class="fas fa-phone-alt"></i>
-          </a>
-          <a href="richmargeducationalconsult@gmail.com" class="text-blue-400">
-            <i class="fas fa-envelope"></i>
-          </a>
-        </div>
-
-        <button @click="toggleMobileMenu" class="lg:hidden text-blue-400">
-          <i class="fas fa-bars text-2xl"></i>
-        </button>
-      </nav>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div v-if="isMobileMenuOpen" class="lg:hidden fixed inset-0 z-50 bg-white">
-      <div class="p-4">
-        <button @click="toggleMobileMenu" class="absolute top-4 right-4 text-gray-700">
-          <i class="fas fa-times text-2xl"></i>
-        </button>
-        <div class="flex flex-col space-y-4 mt-16">
-          <NuxtLink v-for="item in menuItems" 
-            :key="item.title"
-            :to="item.path"
-            class="text-gray-700 hover:text-orange-500 transition-colors py-2"
-            @click="toggleMobileMenu"
-          >
-            {{ item.title }}
-          </NuxtLink>
+<!-- Mobile Menu -->
+<!-- Mobile Menu -->
+<div v-if="isMobileMenuOpen" class="lg:hidden fixed inset-0 bg-blue-400">
+  <div class="h-full flex flex-col">
+    <div class="p-4 flex justify-end">
+      <button @click="toggleMobileMenu" class="text-white">
+        <i class="fas fa-times text-3xl"></i>
+      </button>
+    </div>
+    
+    <div class="flex-1 flex flex-col px-8 py-4">
+      <NuxtLink 
+        v-for="item in menuItems" 
+        :key="item.title"
+        :to="item.path"
+        class="text-white text-xl py-3 border-b border-blue-800 hover:text-orange-400 transition-colors"
+        @click="toggleMobileMenu"
+      >
+        {{ item.title }}
+      </NuxtLink>
+      
+      <!-- Social Media Icons -->
+      <div class="mt-8">
+        <div class="flex justify-center space-x-8">
+          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <main>
       <slot />
@@ -137,15 +181,17 @@ Ekiti State, Nigeria
 
 <script setup>
 const isScrolled = ref(false)
+const isAtHero = ref(true)
 const isMobileMenuOpen = ref(false)
 
+
 const menuItems = [
-  { title: 'About', path: '/about' },
-  { title: 'The BYW Iniatives', path: '/fate-school' },
-  { title: 'Insights', path: '/fate-institute' },
-  { title: 'Our Impacts', path: '/fate-giving' },
-  { title: 'Donation', path: '/resources' },
-  { title: 'Contact', path: '/media' },
+  { title: 'ABOUT', path: '/about' },
+  { title: 'THE BYW INITIATIVE', path: '/fate-school' },
+  { title: 'INSIGHTS', path: '/fate-institute' },
+  { title: 'OUR IMPACTS', path: '/fate-giving' },
+  { title: 'DONATION', path: '/resources' },
+  { title: 'CONTACT', path: '/media' },
 ]
 
 const toggleMobileMenu = () => {
@@ -154,7 +200,9 @@ const toggleMobileMenu = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
+    const heroHeight = window.innerHeight
     isScrolled.value = window.scrollY > 50
+    isAtHero.value = window.scrollY < heroHeight
   })
 })
 </script>
