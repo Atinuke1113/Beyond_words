@@ -2,7 +2,7 @@
   <div class="w-full">
     <AboutHero></AboutHero>
     <AboutWhatWeStandFor></AboutWhatWeStandFor>
-    <AboutStrategy></AboutStrategy>
+    <AboutMeetOurTeam></AboutMeetOurTeam>
     <AboutLeadership></AboutLeadership>
     
     

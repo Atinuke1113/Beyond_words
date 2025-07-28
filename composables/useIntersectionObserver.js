@@ -3,19 +3,19 @@ import { ref, onMounted, onUnmounted } from 'vue'
 export function useIntersectionObserver(options = {}) {
   const isIntersecting = ref(false)
   const target = ref(null)
-
-  const observer = new IntersectionObserver(([entry]) => {
-    isIntersecting.value = entry.isIntersecting
-  }, options)
+  let observer
 
   onMounted(() => {
-    if (target.value) {
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window && target.value) {
+      observer = new window.IntersectionObserver(([entry]) => {
+        isIntersecting.value = entry.isIntersecting
+      }, options)
       observer.observe(target.value)
     }
   })
 
   onUnmounted(() => {
-    observer.disconnect()
+    if (observer) observer.disconnect()
   })
 
   return { isIntersecting, target }

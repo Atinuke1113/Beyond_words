@@ -34,7 +34,7 @@
                   class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                 >
               </div>
-              <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-500 rounded-full opacity-10"></div>
+              <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-500 rounded-full opacity-10"></div>
             </div>
           </div>
 
@@ -75,7 +75,7 @@
 
             <!-- Call to Action -->
             <div class="pt-4">
-              <button class="inline-flex items-center px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors group">
+              <button class="inline-flex items-center px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-400 transition-colors group">
                 Join Our Cause
                 <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
               </button>

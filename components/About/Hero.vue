@@ -1,5 +1,5 @@
 <template>
-  <section class="relative min-h-screen bg-gray-50">
+  <section class="relative min-h-screen px-10 bg-gray-50">
     <!-- Background Pattern -->
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-orange-50 opacity-50"></div>
     
@@ -12,7 +12,7 @@
             :initial="{ opacity: 0, y: 50 }"
             :enter="{ opacity: 1, y: 0 }"
           >
-            <h1 class="text-5xl font-bold text-gray-800 mb-6">Who We Are</h1>
+            <h1 class="text-5xl font-bold text-gray-800 mt-5 mb-6">Who We Are</h1>
             <div class="w-20 h-2 bg-orange-500 rounded-full mb-8"></div>
             
             <div class="space-y-6 text-lg text-gray-600">

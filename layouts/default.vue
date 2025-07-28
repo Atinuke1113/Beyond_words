@@ -61,39 +61,45 @@
     </nav>
 </header>
 
+
 <!-- Mobile Menu -->
-<!-- Mobile Menu -->
-<div v-if="isMobileMenuOpen" class="lg:hidden fixed inset-0 bg-blue-400">
-  <div class="h-full flex flex-col">
-    <div class="p-4 flex justify-end">
-      <button @click="toggleMobileMenu" class="text-white">
-        <i class="fas fa-times text-3xl"></i>
-      </button>
-    </div>
-    
-    <div class="flex-1 flex flex-col px-8 py-4">
-      <NuxtLink 
-        v-for="item in menuItems" 
-        :key="item.title"
-        :to="item.path"
-        class="text-white text-xl py-3 border-b border-blue-800 hover:text-orange-400 transition-colors"
-        @click="toggleMobileMenu"
-      >
-        {{ item.title }}
-      </NuxtLink>
-      
-      <!-- Social Media Icons -->
-      <div class="mt-8">
-        <div class="flex justify-center space-x-8">
-          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-linkedin"></i></a>
+<transition name="slide-fade">
+  <div
+    v-if="isMobileMenuOpen"
+    class="lg:hidden fixed inset-0 z-50 flex"
+    style="background: transparent;" 
+  >
+    <div
+      class="ml-auto w-4/5 max-w-xs h-full bg-blue-400 shadow-lg flex flex-col"
+    >
+      <div class="p-4 flex justify-end">
+        <button @click="toggleMobileMenu" class="text-white">
+          <i class="fas fa-times text-3xl"></i>
+        </button>
+      </div>
+      <div class="flex-1 flex flex-col px-8 py-4">
+        <NuxtLink
+          v-for="item in menuItems"
+          :key="item.title"
+          :to="item.path"
+          class="text-white text-xl py-3 border-b border-orange-400 hover:text-orange-400 transition-colors"
+          @click="toggleMobileMenu"
+        >
+          {{ item.title }}
+        </NuxtLink>
+        <!-- Social Media Icons -->
+        <div class="mt-8">
+          <div class="flex justify-center space-x-8">
+            <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white hover:text-orange-400 text-2xl"><i class="fab fa-linkedin"></i></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</transition>
 
     <main>
       <slot />
@@ -186,8 +192,8 @@ const isMobileMenuOpen = ref(false)
 
 
 const menuItems = [
+  { title: 'HOME', path: '/' },
   { title: 'ABOUT', path: '/about' },
-  { title: 'THE BYW INITIATIVE', path: '/fate-school' },
   { title: 'INSIGHTS', path: '/fate-institute' },
   { title: 'OUR IMPACTS', path: '/fate-giving' },
   { title: 'DONATION', path: '/resources' },
@@ -198,6 +204,14 @@ const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
 }
 
+watch(isMobileMenuOpen, (open) => {
+  if (open) {
+    document.body.classList.add('overflow-hidden')
+  } else {
+    document.body.classList.remove('overflow-hidden')
+  }
+})
+
 onMounted(() => {
   window.addEventListener('scroll', () => {
     const heroHeight = window.innerHeight
@@ -206,3 +220,26 @@ onMounted(() => {
   })
 })
 </script>
+
+<style scoped>
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.5s cubic-bezier(.4,0,.2,1);
+}
+.slide-fade-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.slide-fade-enter-to {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-fade-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-fade-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+</style>
